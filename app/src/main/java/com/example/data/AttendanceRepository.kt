@@ -107,8 +107,20 @@ class AttendanceRepository(private val db: AppDatabase) {
         val startHoursAndMinutes = existing.clockInTime?.split(":")?.mapNotNull { it.toIntOrNull() } ?: listOf(8, 0)
         val endHoursAndMinutes = time.split(":").mapNotNull { it.toIntOrNull() } ?: listOf(17, 0)
         
-        val startVal = startHoursAndMinutes[0] + startHoursAndMinutes[1] / 60.0
-        val endVal = endHoursAndMinutes[0] + endHoursAndMinutes[1] / 60.0
+        val startVal = if (startHoursAndMinutes.size >= 2) {
+            startHoursAndMinutes[0] + startHoursAndMinutes[1] / 60.0
+        } else if (startHoursAndMinutes.size == 1) {
+            startHoursAndMinutes[0].toDouble()
+        } else {
+            8.0
+        }
+        val endVal = if (endHoursAndMinutes.size >= 2) {
+            endHoursAndMinutes[0] + endHoursAndMinutes[1] / 60.0
+        } else if (endHoursAndMinutes.size == 1) {
+            endHoursAndMinutes[0].toDouble()
+        } else {
+            17.0
+        }
         val totalHours = max(0.0, endVal - startVal)
 
         val updated = existing.copy(
