@@ -1,0 +1,6 @@
+{
+  "name": "Absensi Karyawan",
+  "description": "Aplikasi absensi karyawan dengan rekap harian real-time, manajemen pegawai, jam kerja, ekspor data PDF/Excel, pembatasan lokasi (geofencing), serta fitur absen pulang dengan alasan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
